@@ -1,0 +1,158 @@
+[
+  {
+	"EquipmentId": 123456789012,
+    "Values": {
+      "CurrentErrors": [],
+	  "OperatingHoursCrane": 1000,
+	  "ConsumptionCrane": 15,
+	  "ConsumptionTruck": 30,
+	  "Longitude": 16.333596030725836,
+	  "Latitude": 48.170780635210036
+    },
+    "TimeStamp": 14834501556801993
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 10
+    },
+    "TimeStamp": 14834501585324847
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 8
+    },
+    "TimeStamp": 14834501587577446
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 12
+    },
+    "TimeStamp": 14834501618610818
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 7
+    },
+    "TimeStamp": 14834501620846452
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 11
+    },
+    "TimeStamp": 14834501631841488
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 5
+    },
+    "TimeStamp": 14834501633893556
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 5
+    },
+    "TimeStamp": 14834501642504418
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 10
+    },
+    "TimeStamp": 14834501644740116
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 7
+    },
+    "TimeStamp": 14834501685005088
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 9
+    },
+    "TimeStamp": 14834501687246976
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 10
+    },
+    "TimeStamp": 14834501711430078
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 8
+    },
+    "TimeStamp": 14834501713496768
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 6
+    },
+    "TimeStamp": 14834501738324062
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 8
+    },
+    "TimeStamp": 14834501740550799
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 10
+    },
+    "TimeStamp": 14834501743112107
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 11
+    },
+    "TimeStamp": 14834501745344213
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 6
+    },
+    "TimeStamp": 14834501756188699
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 9
+    },
+    "TimeStamp": 14834501758423882
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 7
+    },
+    "TimeStamp": 14834501760485934
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 5
+    },
+    "TimeStamp": 14834501762724946
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 10
+    },
+    "TimeStamp": 14834501780358534
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 12
+    },
+    "TimeStamp": 14834501782444831
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 8
+    },
+    "TimeStamp": 14834501820188112
+  },
+  {
+    "Values": {
+	  "ConsumptionCrane": 10
+    },
+    "TimeStamp": 14834501822250152
+  }
+]

@@ -1,0 +1,14 @@
+﻿[
+{
+	"EquipmentId": 123456789012,
+    "Values": {
+      "CurrentErrors": ["400"],
+	  "OperatingHoursCrane": 300,
+	  "ConsumptionCrane": 0,
+	  "ConsumptionTruck": 0,
+	  "Longitude": 16.333596030725836,
+	  "Latitude": 48.170780635210036
+    },
+    "TimeStamp": 14834501556801993
+}
+]

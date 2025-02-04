@@ -1,0 +1,101 @@
+﻿<Window x:Class="DeviceEmulator.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="415" Width="525" Icon="/DeviceEmulator;component/Resources/Azure-IoT-Hub-Shape.ico">
+    <Grid x:Name="GrdMain">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <!--Header-->
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" FontFamily="Segoe UI Black" FontSize="24" Background="White">
+                IoT Hub Device Emulator
+            </Label>
+
+            <Label Grid.Column="0" Grid.Row="1" FontFamily="Segoe UI Black" FontSize="12" Background="White" Margin="0,0,0.5,0">
+                Microsoft Azure Communication
+            </Label>
+
+            <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Background="White">
+                <Image  HorizontalAlignment="Right" Margin="0,5,0,15" Source="/DeviceEmulator;component/Resources/Microsoft-logo_rgb_c-gray.png" />
+            </Border>
+        </Grid>
+        <!--Header-->
+
+        <!--Ingestion Data-->
+        <!-- Machine Selection -->
+        <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" ItemsSource="{Binding Configuration.DeviceConfiguration}" DisplayMemberPath="DeviceId" SelectedIndex="{Binding IndexSelectedMachine, Mode=TwoWay}" SelectionChanged="SelectedMachine_OnSelectionChanged"/>
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Device Id"/>
+            <Label Name="EnvironmentLbl" Content="Dev" Margin="200,0" FontWeight="Bold" Foreground="Blue"/>
+        </StackPanel>
+
+        <!--Case Emulation - File based Ingest-->
+        <ComboBox Grid.Column="0" Grid.Row="2" Margin="5" ItemsSource="{Binding TelemetryIngestFiles}" DisplayMemberPath="FileName" SelectedIndex="{Binding IndexSelectedTelemetryIngestFile, Mode=TwoWay}"/>
+        <StackPanel  Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+            <Label Content="Message Type"/>
+            <Button Name="IngestBtn" Content="Ingest" Margin="5" Width="55" Click="IngestTelemetry_Click"/>
+            <Button Name="ShowFeaturesBtn" Content="Show Features" Margin="5" Width="90" Click="ShowFeature_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <RadioButton Content="100" GroupName="Alerts" Tag="1" Margin="2" Checked="StatusChanges_Checked" />
+            <RadioButton Content="200" GroupName="ALerts" Tag="2" Margin="2" Checked="StatusChanges_Checked" />
+            <RadioButton Content="300" GroupName="Alerts" Tag="3" Margin="2" Checked="StatusChanges_Checked" />
+            <RadioButton Content="400" GroupName="Alerts" Tag="4" Margin="2" Checked="StatusChanges_Checked" />
+            <RadioButton Content="500" GroupName="Alerts" Tag="5" Margin="2" Checked="StatusChanges_Checked" />
+        </StackPanel>
+        <!--Ingestion Data-->
+
+        <Image Grid.Row="4" Grid.Column="0" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/DeviceEmulator;component/Resources/Azure-IoT-Hub-Shape.png" ToolTip="IoT"/>
+        <Grid Grid.Row="4" Grid.Column="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="75" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Status"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" BorderBrush="Black" Text="{Binding DisplayStatus}" TextWrapping="Wrap" ></TextBox>
+            <Label Grid.Row="2" Grid.Column="0" Content="Arrived Command"/>
+            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" BorderBrush="Black" Text="{Binding ArrivedCommandsStatus}" ></TextBox>
+            <Button Grid.Row="4" Grid.Column="0" Content="Clear" Click="ClearStatus_Click" Margin="5" Width="50" HorizontalAlignment="Left" />
+            <Button Name="ReceiceCommandsBtn" Grid.Row="4" Grid.Column="0" Content="Start Receiving" Click="ReceiveCommands_Click" Margin="5" Width="100" HorizontalAlignment="Right"/>
+        </Grid>
+
+        <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Background="White">
+        </Border>
+
+    </Grid>
+
+</Window>

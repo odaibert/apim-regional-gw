@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{A5C9E07C-7001-4FA2-9BCD-7CA0B1595C43}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DeviceEmulator.UWP</RootNamespace>
+    <AssemblyName>DeviceEmulator.UWP</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>DeviceEmulator.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="..\DeviceEmulator\Resources\Azure-IoT-Hub-Shape.ico">
+      <Link>Assets\Azure-IoT-Hub-Shape.ico</Link>
+    </Content>
+    <Content Include="..\DeviceEmulator\Resources\Azure-IoT-Hub-Shape.png">
+      <Link>Assets\Azure-IoT-Hub-Shape.png</Link>
+    </Content>
+    <Content Include="..\DeviceEmulator\Resources\iot-hub_50x50.png">
+      <Link>Assets\iot-hub_50x50.png</Link>
+    </Content>
+    <Content Include="..\DeviceEmulator\Resources\Microsoft-logo_rgb_c-gray.png">
+      <Link>Assets\Microsoft-logo_rgb_c-gray.png</Link>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\Alerts\Alert %28100%29 - Fehler 1.txt">
+      <Link>Assets\SampleFiles\Alerts\Alert %28100%29 - Fehler 1.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\Alerts\Alert %28200%29 - Fehler 2.txt">
+      <Link>Assets\SampleFiles\Alerts\Alert %28200%29 - Fehler 2.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\Alerts\Alert %28300%29 - Fehler 3.txt">
+      <Link>Assets\SampleFiles\Alerts\Alert %28300%29 - Fehler 3.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\Alerts\Alert %28400%29 - Fehler 4.txt">
+      <Link>Assets\SampleFiles\Alerts\Alert %28400%29 - Fehler 4.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\Alerts\Alert %28500%29 - Fehler 5.txt">
+      <Link>Assets\SampleFiles\Alerts\Alert %28500%29 - Fehler 5.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\Alerts\No Alert %28000%29.txt">
+      <Link>Assets\SampleFiles\Alerts\No Alert %28000%29.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\Alerts\No Alert %28001%29 - Feature.txt">
+      <Link>Assets\SampleFiles\Alerts\No Alert %28001%29 - Feature.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\TelemetryPackage.gz">
+      <Link>Assets\SampleFiles\TelemetryPackage.gz</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\TelemetryPackageWAlerts.gz">
+      <Link>Assets\SampleFiles\TelemetryPackageWAlerts.gz</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\DeviceEmulator\Dto\ConfigurationDto.cs">
+      <Link>Dto\ConfigurationDto.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\Dto\DeviceConfigurationDto.cs">
+      <Link>Dto\DeviceConfigurationDto.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\Dto\TelemetrySampleFileDto.cs">
+      <Link>Dto\TelemetrySampleFileDto.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\Logic\C2DCommandTimer.cs">
+      <Link>Logic\C2DCommandTimer.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\Logic\EmulatorLogic.cs">
+      <Link>Logic\EmulatorLogic.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\Logic\Event\C2DCommandEventArgs.cs">
+      <Link>Logic\Event\C2DCommandEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\Logic\Event\StatusChangeEventArgs.cs">
+      <Link>Logic\Event\StatusChangeEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\Logic\IEmulatorLogic.cs">
+      <Link>Logic\IEmulatorLogic.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\ViewModel\BaseViewModel.cs">
+      <Link>ViewModel\BaseViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\ViewModel\FeatureWindowViewModel.cs">
+      <Link>ViewModel\FeatureWindowViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\DeviceEmulator\ViewModel\MainWindowViewModel.cs">
+      <Link>ViewModel\MainWindowViewModel.cs</Link>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\DeviceMonitoringTimer.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="DeviceEmulator.UWP_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\DeviceEmulator\SampleFiles\SingleAlert.txt">
+      <Link>Assets\SampleFiles\SingleAlert.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\SingleTelemetry.txt">
+      <Link>Assets\SampleFiles\SingleTelemetry.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\DeviceEmulator\SampleFiles\TelemetryPackage.txt">
+      <Link>Assets\SampleFiles\TelemetryPackage.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\EmulatorSplashScreen.scale-100.png" />
+    <Content Include="Assets\EmulatorSplashScreen.scale-125.png" />
+    <Content Include="Assets\EmulatorSplashScreen.scale-150.png" />
+    <Content Include="Assets\EmulatorSplashScreen.scale-200.png" />
+    <Content Include="Assets\EmulatorSplashScreen.scale-400.png" />
+    <Content Include="Assets\iot-hub150x150Logo.scale-200.png" />
+    <Content Include="Assets\iot-hub310x150Logo.scale-100.png" />
+    <Content Include="Assets\iot-hub310x150Logo.scale-200.png" />
+    <Content Include="Assets\iot-Hub44x44Logo.scale-200.png" />
+    <Content Include="Assets\iot-Hub44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\iot-hubLogo.scale-100.png" />
+    <Content Include="Assets\iot-hubLogo.scale-125.png" />
+    <Content Include="Assets\iot-hubLogo.scale-150.png" />
+    <Content Include="Assets\iot-hubLogo.scale-200.png" />
+    <Content Include="Assets\iot-hubLogo.scale-400.png" />
+    <Content Include="iot-hub_50x50.scale-100.png" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common.UWP\Common.UWP.csproj">
+      <Project>{bec91aa4-d0b3-40d8-9438-156b7cdaed29}</Project>
+      <Name>Common.UWP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\SampleFiles\Certificates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Devices">
+      <Version>1.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Azure.Devices.Client">
+      <Version>1.2.5</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Devices.Tpm">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>10.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
