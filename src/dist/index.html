@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Azure API Management Custom Routing Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .code-block { background: #f4f4f4; padding: 15px; border-radius: 5px; }
+        .button { padding: 10px 20px; background: #0078d4; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .result { margin-top: 20px; padding: 15px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Azure API Management Custom Routing Demo</h1>
+        
+        <h2>1. Traffic Manager Profile Setup</h2>
+        <div class="code-block">
+            <pre>
+# Azure CLI commands to create Traffic Manager profile
+az network traffic-manager profile create \
+    --name myTrafficManager \
+    --resource-group myResourceGroup \
+    --routing-method Geographic \
+    --unique-dns-name myapp-tm</pre>
+        </div>
+
+        <h2>2. Add Regional Endpoints</h2>
+        <div class="code-block">
+            <pre>
+# Add East US endpoint
+az network traffic-manager endpoint create \
+    --name eastus \
+    --profile-name myTrafficManager \
+    --resource-group myResourceGroup \
+    --type azureEndpoints \
+    --target-resource-id /subscriptions/{subscription-id}/resourceGroups/myResourceGroup/providers/Microsoft.ApiManagement/service/myapim-eastus \
+    --geo-mapping GEO-NA \
+    --endpoint-status Enabled
+
+# Add West Europe endpoint
+az network traffic-manager endpoint create \
+    --name westeurope \
+    --profile-name myTrafficManager \
+    --resource-group myResourceGroup \
+    --type azureEndpoints \
+    --target-resource-id /subscriptions/{subscription-id}/resourceGroups/myResourceGroup/providers/Microsoft.ApiManagement/service/myapim-westeurope \
+    --geo-mapping GEO-EU \
+    --endpoint-status Enabled</pre>
+        </div>
+
+        <h2>3. Test Regional Routing</h2>
+        <div>
+            <p>Select a region to simulate request from:</p>
+            <select id="region">
+                <option value="NA">North America</option>
+                <option value="EU">Europe</option>
+                <option value="AS">Asia</option>
+            </select>
+            <button class="button" onclick="testRouting()">Test Routing</button>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function testRouting() {
+            const region = document.getElementById('region').value;
+            const result = document.getElementById('result');
+            
+            // Simulate routing result based on selected region
+            let routedTo = '';
+            switch(region) {
+                case 'NA':
+                    routedTo = 'East US Gateway (https://myapim-eastus.azure-api.net)';
+                    break;
+                case 'EU':
+                    routedTo = 'West Europe Gateway (https://myapim-westeurope.azure-api.net)';
+                    break;
+                case 'AS':
+                    routedTo = 'Southeast Asia Gateway (https://myapim-asia.azure-api.net)';
+                    break;
+            }
+            
+            result.innerHTML = `
+                <h3>Routing Result:</h3>
+                <p>Request from: ${region}</p>
+                <p>Routed to: ${routedTo}</p>
+                <p>This simulation demonstrates how Traffic Manager would route requests based on geographic location.</p>
+            `;
+        }
+    </script>
+</body>
+</html>
