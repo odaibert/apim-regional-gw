@@ -30,6 +30,17 @@ def verify_azure_cli():
 def deploy_bicep():
     logger.info("Deploying Bicep template...")
     deployment_name = f'apim-deploy-{datetime.now().strftime("%Y%m%d-%H%M%S")}'
+    
+    # First, validate the template
+    logger.info("Validating Bicep template...")
+    validate_command = f'az deployment group validate --name {deployment_name} --resource-group {resource_group_name} --template-file ../bicep/main.bicep --parameters location={primary_location} secondaryLocation={secondary_location} apimName={apim_name}'
+    validation_result = utils.run_az_command(validate_command)
+    if not validation_result:
+        raise Exception("Bicep template validation failed")
+    logger.info("Template validation successful")
+    
+    # Then deploy if validation passes
+    logger.info("Starting deployment...")
     command = f'az deployment group create --name {deployment_name} --resource-group {resource_group_name} --template-file ../bicep/main.bicep --parameters location={primary_location} secondaryLocation={secondary_location} apimName={apim_name}'
     result = utils.run_az_command(command)
     if not result:

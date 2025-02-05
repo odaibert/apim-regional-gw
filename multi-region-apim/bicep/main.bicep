@@ -33,7 +33,7 @@ resource apimService 'Microsoft.ApiManagement/service@2023-03-01-preview' = {
 
 output apimName string = apimService.name
 output primaryGatewayUrl string = apimService.properties.gatewayUrl
-output secondaryGatewayUrl string = '${apimService.properties.gatewayUrl}'.replace(location, secondaryLocation)
+output secondaryGatewayUrl string = replace(string(apimService.properties.gatewayUrl), location, secondaryLocation)
 
 // Mock backend API and operations
 resource mockBackendApi 'Microsoft.ApiManagement/service/apis@2023-03-01-preview' = {
