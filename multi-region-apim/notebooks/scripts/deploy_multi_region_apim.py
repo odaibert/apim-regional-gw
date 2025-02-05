@@ -60,17 +60,32 @@ def get_deployment_outputs():
 def verify_traffic_manager():
     logger.info("Verifying Traffic Manager deployment...")
     tm_name = f'{apim_name}-tm'
+    
+    # Check Traffic Manager profile
     command = f'az network traffic-manager profile show -g {resource_group_name} -n {tm_name}'
     result = utils.run_az_command(command)
-    if result:
-        logger.info(f"Traffic Manager URL: https://{result.get('dnsConfig', {}).get('relativeName')}.trafficmanager.net")
-        
-        # Check endpoint health
-        endpoints_command = f'az network traffic-manager endpoint list -g {resource_group_name} --profile-name {tm_name}'
-        endpoints = utils.run_az_command(endpoints_command)
-        if endpoints:
-            for endpoint in endpoints:
-                logger.info(f"Endpoint {endpoint.get('name')}: {endpoint.get('properties', {}).get('endpointMonitorStatus', 'Unknown')}")
+    if not result:
+        logger.error("Traffic Manager profile not found")
+        raise Exception("Traffic Manager profile not found")
+    
+    logger.info(f"Traffic Manager URL: https://{result.get('dnsConfig', {}).get('relativeName')}.trafficmanager.net")
+    logger.info(f"Routing method: {result.get('properties', {}).get('trafficRoutingMethod')}")
+    
+    # Check endpoint health
+    endpoints_command = f'az network traffic-manager endpoint list -g {resource_group_name} --profile-name {tm_name}'
+    endpoints = utils.run_az_command(endpoints_command)
+    if not endpoints:
+        logger.error("No endpoints found in Traffic Manager profile")
+        raise Exception("No endpoints found in Traffic Manager profile")
+    
+    for endpoint in endpoints:
+        endpoint_props = endpoint.get('properties', {})
+        logger.info(f"Endpoint {endpoint.get('name')}:")
+        logger.info(f"  - Status: {endpoint_props.get('endpointMonitorStatus', 'Unknown')}")
+        logger.info(f"  - Target Resource: {endpoint_props.get('targetResourceId')}")
+        logger.info(f"  - Location: {endpoint_props.get('endpointLocation')}")
+        logger.info(f"  - Geo-mapping: {endpoint_props.get('geoMapping', [])}")
+    
     return result
 
 def main():

@@ -36,12 +36,12 @@ output primaryGatewayUrl string = apimService.properties.gatewayUrl
 output secondaryGatewayUrl string = replace(string(apimService.properties.gatewayUrl), location, secondaryLocation)
 
 // Traffic Manager configuration
-resource trafficManagerProfile 'Microsoft.Network/trafficManagerProfiles@2018-08-01' = {
+resource trafficManagerProfile 'Microsoft.Network/trafficManagerProfiles@2023-05-01' = {
   name: '${apimName}-tm'
   location: 'global'
   properties: {
     profileStatus: 'Enabled'
-    trafficRoutingMethod: 'Performance'
+    trafficRoutingMethod: 'Geographic'
     dnsConfig: {
       relativeName: '${apimName}-tm'
       ttl: 30
@@ -57,20 +57,22 @@ resource trafficManagerProfile 'Microsoft.Network/trafficManagerProfiles@2018-08
     endpoints: [
       {
         name: 'primary-endpoint'
-        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        type: 'Microsoft.Network/trafficManagerProfiles/azureEndpoints'
         properties: {
-          target: apimService.properties.gatewayUrl
+          targetResourceId: apimService.id
           endpointStatus: 'Enabled'
           endpointLocation: location
+          geoMapping: ['WORLD']
         }
       }
       {
         name: 'secondary-endpoint'
-        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        type: 'Microsoft.Network/trafficManagerProfiles/azureEndpoints'
         properties: {
-          target: replace(string(apimService.properties.gatewayUrl), location, secondaryLocation)
+          targetResourceId: apimService.id
           endpointStatus: 'Enabled'
           endpointLocation: secondaryLocation
+          geoMapping: ['WORLD']
         }
       }
     ]

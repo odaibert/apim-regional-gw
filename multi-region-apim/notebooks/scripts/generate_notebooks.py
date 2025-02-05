@@ -27,7 +27,38 @@ apim_sku = "Premium"'''),
     nbf.v4.new_markdown_cell('## Get Deployment Outputs'),
     nbf.v4.new_code_cell('def get_deployment_outputs():\n    logger.info("Getting deployment outputs...")\n    command = f"az apim show -g {resource_group_name} -n {apim_name}"\n    result = utils.run_az_command(command)\n    if result:\n        logger.info(f"Primary Gateway URL: {result.get("gatewayUrl")}")\n        logger.info(f"Additional Locations: {result.get("additionalLocations", [])}")\n        logger.info(f"Mock Backend API URL: {result.get("gatewayUrl")}/mock")\n    return result\n\nget_deployment_outputs()'),
     nbf.v4.new_markdown_cell('## Verify Traffic Manager Configuration'),
-    nbf.v4.new_code_cell('def verify_traffic_manager():\n    logger.info("Verifying Traffic Manager deployment...")\n    tm_name = f"{apim_name}-tm"\n    command = f"az network traffic-manager profile show -g {resource_group_name} -n {tm_name}"\n    result = utils.run_az_command(command)\n    if result:\n        logger.info(f"Traffic Manager URL: https://{result.get("dnsConfig", {}).get("relativeName")}.trafficmanager.net")\n        \n        # Check endpoint health\n        endpoints_command = f"az network traffic-manager endpoint list -g {resource_group_name} --profile-name {tm_name}"\n        endpoints = utils.run_az_command(endpoints_command)\n        if endpoints:\n            for endpoint in endpoints:\n                logger.info(f"Endpoint {endpoint.get("name")}: {endpoint.get("properties", {}).get("endpointMonitorStatus", "Unknown")}")\n    return result\n\nverify_traffic_manager()')
+    nbf.v4.new_code_cell('''def verify_traffic_manager():
+    logger.info("Verifying Traffic Manager deployment...")
+    tm_name = f"{apim_name}-tm"
+    
+    # Check Traffic Manager profile
+    command = f"az network traffic-manager profile show -g {resource_group_name} -n {tm_name}"
+    result = utils.run_az_command(command)
+    if not result:
+        logger.error("Traffic Manager profile not found")
+        raise Exception("Traffic Manager profile not found")
+    
+    logger.info(f"Traffic Manager URL: https://{result.get('dnsConfig', {}).get('relativeName')}.trafficmanager.net")
+    logger.info(f"Routing method: {result.get('properties', {}).get('trafficRoutingMethod')}")
+    
+    # Check endpoint health
+    endpoints_command = f"az network traffic-manager endpoint list -g {resource_group_name} --profile-name {tm_name}"
+    endpoints = utils.run_az_command(endpoints_command)
+    if not endpoints:
+        logger.error("No endpoints found in Traffic Manager profile")
+        raise Exception("No endpoints found in Traffic Manager profile")
+    
+    for endpoint in endpoints:
+        endpoint_props = endpoint.get('properties', {})
+        logger.info(f"Endpoint {endpoint.get('name')}:")
+        logger.info(f"  - Status: {endpoint_props.get('endpointMonitorStatus', 'Unknown')}")
+        logger.info(f"  - Target Resource: {endpoint_props.get('targetResourceId')}")
+        logger.info(f"  - Location: {endpoint_props.get('endpointLocation')}")
+        logger.info(f"  - Geo-mapping: {endpoint_props.get('geoMapping', [])}")
+    
+    return result
+
+verify_traffic_manager()''')
 ]
 
 # Save deploy notebook
