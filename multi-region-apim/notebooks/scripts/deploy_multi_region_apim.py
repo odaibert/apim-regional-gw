@@ -57,11 +57,28 @@ def get_deployment_outputs():
         logger.info(f"Mock Backend API URL: {result.get('gatewayUrl')}/mock")
     return result
 
+def verify_traffic_manager():
+    logger.info("Verifying Traffic Manager deployment...")
+    tm_name = f'{apim_name}-tm'
+    command = f'az network traffic-manager profile show -g {resource_group_name} -n {tm_name}'
+    result = utils.run_az_command(command)
+    if result:
+        logger.info(f"Traffic Manager URL: https://{result.get('dnsConfig', {}).get('relativeName')}.trafficmanager.net")
+        
+        # Check endpoint health
+        endpoints_command = f'az network traffic-manager endpoint list -g {resource_group_name} --profile-name {tm_name}'
+        endpoints = utils.run_az_command(endpoints_command)
+        if endpoints:
+            for endpoint in endpoints:
+                logger.info(f"Endpoint {endpoint.get('name')}: {endpoint.get('properties', {}).get('endpointMonitorStatus', 'Unknown')}")
+    return result
+
 def main():
     try:
         verify_azure_cli()
         deploy_bicep()
         get_deployment_outputs()
+        verify_traffic_manager()
     except Exception as e:
         logger.error(f"Deployment failed: {str(e)}")
         sys.exit(1)

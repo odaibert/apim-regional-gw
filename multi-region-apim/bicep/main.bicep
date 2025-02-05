@@ -35,6 +35,50 @@ output apimName string = apimService.name
 output primaryGatewayUrl string = apimService.properties.gatewayUrl
 output secondaryGatewayUrl string = replace(string(apimService.properties.gatewayUrl), location, secondaryLocation)
 
+// Traffic Manager configuration
+resource trafficManagerProfile 'Microsoft.Network/trafficManagerProfiles@2018-08-01' = {
+  name: '${apimName}-tm'
+  location: 'global'
+  properties: {
+    profileStatus: 'Enabled'
+    trafficRoutingMethod: 'Performance'
+    dnsConfig: {
+      relativeName: '${apimName}-tm'
+      ttl: 30
+    }
+    monitorConfig: {
+      protocol: 'HTTPS'
+      port: 443
+      path: '/status-0123456789abcdef'
+      intervalInSeconds: 30
+      timeoutInSeconds: 10
+      toleratedNumberOfFailures: 3
+    }
+    endpoints: [
+      {
+        name: 'primary-endpoint'
+        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        properties: {
+          target: apimService.properties.gatewayUrl
+          endpointStatus: 'Enabled'
+          endpointLocation: location
+        }
+      }
+      {
+        name: 'secondary-endpoint'
+        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        properties: {
+          target: replace(string(apimService.properties.gatewayUrl), location, secondaryLocation)
+          endpointStatus: 'Enabled'
+          endpointLocation: secondaryLocation
+        }
+      }
+    ]
+  }
+}
+
+output trafficManagerUrl string = 'https://${trafficManagerProfile.properties.dnsConfig.relativeName}.trafficmanager.net'
+
 // Mock backend API and operations
 resource mockBackendApi 'Microsoft.ApiManagement/service/apis@2023-03-01-preview' = {
   parent: apimService
