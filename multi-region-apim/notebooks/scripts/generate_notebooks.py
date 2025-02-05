@@ -8,7 +8,16 @@ nb['cells'] = [
     nbf.v4.new_markdown_cell('# Multi-Region API Management Deployment\n\nThis notebook deploys an Azure API Management service across two regions using Premium SKU.'),
     nbf.v4.new_code_cell('import os\nimport sys\nimport json\nimport logging\nfrom datetime import datetime\n\nnotebook_dir = "/home/ubuntu/repos/TestDevin/multi-region-apim/notebooks"\nsys.path.append(os.path.join(notebook_dir, "scripts"))\nimport utils\n\nlogging.basicConfig(\n    level=logging.INFO,\n    format="%(asctime)s - %(levelname)s - %(message)s"\n)\nlogger = logging.getLogger(__name__)'),
     nbf.v4.new_markdown_cell('## Initialize Variables'),
-    nbf.v4.new_code_cell('subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")\nresource_group_name = "rg-multi-region-apim"\nprimary_location = "eastus"\nsecondary_location = "westeurope"\napim_name = f"apim-{os.getenv("AZURE_SUBSCRIPTION_ID", "")[:8]}"\napim_sku = "Premium"'),
+    nbf.v4.new_markdown_cell('## Configure Environment Variables\n\nMake sure to set the following environment variables:\n- AZURE_SUBSCRIPTION_ID: Your Azure subscription ID\n- AZURE_RESOURCE_GROUP: Resource group name (default: rg-multi-region-apim)\n- AZURE_APIM_NAME: API Management instance name (default: generated from subscription)'),
+    nbf.v4.new_code_cell('''subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
+if not subscription_id:
+    raise ValueError("AZURE_SUBSCRIPTION_ID environment variable is required")
+
+resource_group_name = os.getenv("AZURE_RESOURCE_GROUP", "rg-multi-region-apim")
+apim_name = os.getenv("AZURE_APIM_NAME", f"apim-{subscription_id[:8]}")
+primary_location = "eastus"
+secondary_location = "westeurope"
+apim_sku = "Premium"'''),
     nbf.v4.new_markdown_cell('## Verify Azure CLI Authentication'),
     nbf.v4.new_code_cell('def verify_azure_cli():\n    logger.info("Verifying Azure CLI authentication...")\n    result = utils.run_az_command("az account show")\n    if not result:\n        raise Exception("Azure CLI authentication failed")\n    logger.info(f"Authenticated as: {result.get("user", {}).get("name")}")\n    return result\n\nverify_azure_cli()'),
     nbf.v4.new_markdown_cell('## Create Resource Group'),
